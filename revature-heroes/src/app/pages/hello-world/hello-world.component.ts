@@ -9,12 +9,12 @@ import { HeroService } from 'src/app/services/hero.service';
 })
 export class HelloWorldComponent implements OnInit {
 
-  helloObs: Observable<String>;
+  hello: String;
 
   constructor(private heroService: HeroService) { }
 
   ngOnInit(): void {
-    this.helloObs = this.heroService.getHelloWorld();
+    this.heroService.getHelloWorld().subscribe(data => this.hello = data);
   }
 
 }
