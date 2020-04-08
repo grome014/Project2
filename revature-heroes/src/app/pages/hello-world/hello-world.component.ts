@@ -15,6 +15,9 @@ export class HelloWorldComponent implements OnInit {
 
   ngOnInit(): void {
     this.helloObs = this.heroService.getHelloWorld();
+    this.heroService.getHelloWorld().subscribe((data) => {
+      console.log(data);
+      document.getElementById("test").innerHTML = data.content;
+    });
   }
-
 }
