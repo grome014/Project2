@@ -9,7 +9,7 @@ import { HeroService } from 'src/app/services/hero.service';
 })
 export class HelloWorldComponent implements OnInit {
 
-  helloObs: Observable<String>;
+  hello: String;
 
   constructor(private heroService: HeroService) { }
 
