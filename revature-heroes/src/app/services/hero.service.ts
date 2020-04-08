@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HeroService {
 
-  private heroUrl = 'http://ec2-54-80-76-22.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
 
   constructor(private http: HttpClient) { }
 

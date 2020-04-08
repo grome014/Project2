@@ -1,0 +1,15 @@
+<h2>Register</h2>
+<div>
+    <label>Username:
+        <input [(ngModel)]="info.userName" type="text"/>
+    </label>
+    <label>Password:
+        <input [(ngModel)]="info.password" type="password"/>
+    </label>
+</div>
+
+<button (click)="registerUser()">Register</button>
+
+<div>
+    <p>{{success | json}}</p>
+</div>
