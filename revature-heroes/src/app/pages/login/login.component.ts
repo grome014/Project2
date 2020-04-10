@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
 
   info: Login;
-  success: Login;
+  //success: Login;
   loginForm: FormGroup;
   submitted = false;
   loading = false;
@@ -50,8 +50,11 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.info = this.loginForm.value;
     console.log(this.info);
-    this.userService.loginUser(this.info).subscribe(data => {this.success = data, 
-      this.validateLogin(this.success)});
+    this.userService.loginUser(this.info).subscribe(data => {
+      //this.success = data; 
+      this.validateLogin(this.success);
+      sessionStorage.setItem('current_user', data.userName);
+    });
   }
 
   validateLogin(credentials: Login) {

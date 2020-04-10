@@ -11,6 +11,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HeaderComponent } from './pages/header/header.component';
     RegisterComponent,
     LoginComponent,
     LogoutComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeroCardsComponent
   ],
   imports: [
     BrowserModule,

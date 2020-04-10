@@ -5,9 +5,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 
 const routes: Routes = [
   { path: 'helloworld', component: HelloWorldComponent },
+  { path: 'hero-cards', component: HeroCardsComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService] },
