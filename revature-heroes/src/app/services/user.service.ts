@@ -9,12 +9,18 @@ import { Login } from '../models/login';
 export class UserService {
 
   private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
-  private test = 'http://136.53.74.123:8080/RevatureHeroes/';
-
 
   constructor(private http: HttpClient) { }
   
   registerUser(login: Login): Observable<Login> {
     return this.http.post<Login>(`${this.heroUrl}register`, login);
+  }
+
+  loginUser(login: Login): Observable<Login> {
+    return this.http.post<Login>(`${this.heroUrl}login`, login);
+  }
+
+  logoutUser(): Observable<String> {
+    return this.http.get<String>(`${this.heroUrl}logout`);
   }
 }

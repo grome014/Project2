@@ -1,6 +1,6 @@
 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-<h2>Register</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="userName">Username</label>
         <input type="text" formControlName="userName" class="form-control" 
@@ -22,21 +22,11 @@
     <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Register
+            Login
         </button>
+        <a routerLink="/register" class="btn btn-link">Register</a>
     </div>
 </form>
-
-<!-- <div>
-    <label>Username:
-        <input [(ngModel)]="info.userName" type="text"/>
-    </label>
-    <label>Password:
-        <input [(ngModel)]="info.password" type="password"/>
-    </label>
-</div>
-
-<button (click)="registerUser()">Register</button> -->
 
 <div>
     <p>{{success | json}}</p>
