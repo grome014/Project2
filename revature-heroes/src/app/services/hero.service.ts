@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable, of } from 'rxjs';
-import { Hero }       from '../hero';
+import { Hero }       from '../models/hero';
 import { TEST_HEROES } from '../test-heroes';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { TEST_HEROES } from '../test-heroes';
 export class HeroService {
 
   private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private apiUrl = 'https://www.superheroapi.com/api.php/10219874160636069/';
 
   constructor(private http: HttpClient) { }
 
@@ -17,12 +19,21 @@ export class HeroService {
     return this.http.get<String>(`${this.heroUrl}greeting`);
   }
 
-  getHeroes(id): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${this.heroUrl}${id}`);
+  getHeroes(user: User): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${this.heroUrl}${user.id}`);
     //@TODO: I need a path to get heroes from! -Logan
+  }
+
+  //will need to invoke this method for each randomly generated hero id received
+  getApiHeroes(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}${id}`);
   }
 
   getTestHeroes(): Observable<Hero[]> {
     return of(TEST_HEROES);
+  }
+
+  saveHeroes(heroes: Hero[]): Observable<Hero[]> {
+    return this.http.post<Hero[]>(`${this.heroUrl}`, heroes);
   }
 }

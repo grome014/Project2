@@ -9,5 +9,5 @@ export interface Hero {
     durability: number,
     power: number,
     combat: number,
-    url: string
+    url: string 
 }
