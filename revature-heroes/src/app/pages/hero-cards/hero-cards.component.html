@@ -1,1 +1,18 @@
 <p>hero-cards works!</p>
+<!-- <ul>
+    <li *ngFor="let hero of heroes">
+        {{hero?.name}}
+        <img src="https://www.superherodb.com/pictures2/portraits/10/100/1460.jpg">
+    </li>
+</ul> -->
+
+<div class="grid-container" *ngFor="let hero of heroes">
+    <div>
+        <mat-card>
+            <mat-card-title>Test Hero</mat-card-title>
+            <img mat-card-image src="https://www.superherodb.com/pictures2/portraits/10/100/1460.jpg">
+            <mat-card-content><p>I: 35, S: 15, D: 35, P: 100 </p></mat-card-content>
+        </mat-card>
+    </div>
+
+</div>
