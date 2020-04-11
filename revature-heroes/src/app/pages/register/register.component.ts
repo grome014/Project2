@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Login } from 'src/app/models/login';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   loading = false;
   error: string;
+  user: User;
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
