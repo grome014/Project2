@@ -12,6 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
     LoginComponent,
     LogoutComponent,
     HeaderComponent,
-    HeroCardsComponent
+    HeroCardsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

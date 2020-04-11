@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/models/login';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
 
   info: Login;
-  //success: Login;
+  user: User;
   loginForm: FormGroup;
   submitted = false;
   loading = false;
@@ -51,13 +52,12 @@ export class LoginComponent implements OnInit {
     this.info = this.loginForm.value;
     console.log(this.info);
     this.userService.loginUser(this.info).subscribe(data => {
-      //this.success = data; 
-      this.validateLogin(this.success);
-      sessionStorage.setItem('current_user', data.userName);
+      this.user = data; 
+      this.validateLogin(this.user);
     });
   }
 
-  validateLogin(credentials: Login) {
+  validateLogin(credentials: User) {
     if (this.authenService.authenticate(credentials)) {
       //this.router.navigate()
     } else {

@@ -17,8 +17,8 @@ export class UserService {
     return this.http.post<Login>(`${this.heroUrl}register`, login);
   }
 
-  loginUser(login: Login): Observable<Login> {
-    return this.http.post<Login>(`${this.heroUrl}login`, login);
+  loginUser(login: Login): Observable<User> {
+    return this.http.post<User>(`${this.heroUrl}login`, login);
   }
 
   logoutUser(): Observable<String> {
