@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { HelloWorldComponent } from './pages/hello-world/hello-world.component';
@@ -14,6 +15,8 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     LogoutComponent,
     HeaderComponent,
-    HeroCardsComponent
+    HeroCardsComponent,
+    HeroMissionComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

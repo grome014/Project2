@@ -1,12 +1,12 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: 200px 200px;
-    justify-content: space-evenly;
-    align-content: start;
-    grid-gap: 10px;
-    padding: 10px;
-  }
+mat-card {
+    max-width: 150px;
+    max-height: 300px;
+}
 
-.mat-card {
-    background-color: beige;
+mat-grid-tile {
+    background: lightblue;
+}
+
+mat-grid-list {
+    
 }
