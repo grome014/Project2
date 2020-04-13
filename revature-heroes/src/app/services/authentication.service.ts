@@ -38,6 +38,7 @@ export class AuthenticationService {
 
   setUser(user: User) {
     this.user = user;
+    sessionStorage.setItem("userId", user.id.toString());
   }
 
   getUser(): User {

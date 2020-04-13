@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Hero }              from '../../models/hero';
 import { HeroService }       from '../../services/hero.service'; 
 
@@ -8,19 +8,17 @@ import { HeroService }       from '../../services/hero.service';
   styleUrls: ['./hero-cards.component.css']
 })
 export class HeroCardsComponent implements OnInit {
-  heroes: Hero[];
-
+  @Input() heroes: Hero[];
   
   constructor(private heroService: HeroService) { }
 
   
   ngOnInit(): void {
-   this.getTestHeroes();
+   
   }
 
   getTestHeroes(): void {
     this.heroService.getTestHeroes()
         .subscribe(data => this.heroes = data)
   }
-
 }
