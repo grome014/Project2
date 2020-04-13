@@ -1,7 +1,9 @@
 import { Hero } from './hero';
 
-export interface User {
-    id: number,
-    userName: string,
+export class User {
+    id: number;
+    userName: string;
     heroes: Hero[]
+
+    constructor() {}
 }
