@@ -3,7 +3,13 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { HelloWorldComponent } from './pages/hello-world/hello-world.component';
@@ -13,8 +19,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
 import { HomeComponent } from './pages/home/home.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +32,9 @@ import { HomeComponent } from './pages/home/home.component';
     LogoutComponent,
     HeaderComponent,
     HeroCardsComponent,
+    HeroMissionComponent,
     HomeComponent
+
   ],
   imports: [
     BrowserModule,
@@ -34,7 +43,12 @@ import { HomeComponent } from './pages/home/home.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

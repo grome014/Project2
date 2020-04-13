@@ -6,10 +6,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
+import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
 import { HomeComponent } from './pages/home/home.component';
+
 
 const routes: Routes = [
   { path: 'helloworld', component: HelloWorldComponent },
+  { path: 'hero-mission', component: HeroMissionComponent},
   { path: 'hero-cards', component: HeroCardsComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
