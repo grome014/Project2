@@ -16,33 +16,28 @@
         </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
+        <div class="example-container" cdkDropListGroup>
+            <h2>Test Heroes</h2>
+            <div
+                cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="done"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+            </div>
         <div class="example-container">
-            <h2>To do</h2>
-          
-            <div
-              cdkDropList
-              #todoList="cdkDropList"
-              [cdkDropListData]="todo"
-              [cdkDropListConnectedTo]="[doneList]"
-              class="example-list"
-              (cdkDropListDropped)="drop($event)">
-              <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+            <h2>testHeroes</h2>
+                <div
+                    cdkDropList
+                    #heroList="cdkDropList"
+                    [cdkDropListData]="testHeroes"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let hero of testHeroes" cdkDrag><p>{{hero.name}}</p></div>
+                </div>
             </div>
-          </div>
-          
-          <div class="example-container">
-            <h2>Done</h2>
-          
-            <div
-              cdkDropList
-              #doneList="cdkDropList"
-              [cdkDropListData]="done"
-              [cdkDropListConnectedTo]="[todoList]"
-              class="example-list"
-              (cdkDropListDropped)="drop($event)">
-              <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-            </div>
-          </div>
+        </div> 
     </mat-sidenav-content>
 </mat-sidenav-container>
 

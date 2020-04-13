@@ -13,7 +13,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 
 export class HeroMissionComponent implements OnInit {
   testHeroes: Hero[];
-  missionHeroes: Hero[] = [];
+  missionHeroes: Hero[];
 
   todo = [
     'Get to work',
