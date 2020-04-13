@@ -10,4 +10,5 @@ export interface Hero {
     power: number,
     combat: number,
     url: string 
+
 }

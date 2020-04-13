@@ -52,14 +52,15 @@ export class LoginComponent implements OnInit {
     this.info = this.loginForm.value;
     console.log(this.info);
     this.userService.loginUser(this.info).subscribe(data => {
-      this.user = data; 
+      this.user = data;
+      console.log(this.user);
       this.validateLogin(this.user);
     });
   }
 
   validateLogin(credentials: User) {
     if (this.authenService.authenticate(credentials)) {
-      //this.router.navigate()
+      this.router.navigate(['home']);
     } else {
       this.error = 'Credentials are incorrect';
       this.loading = false;

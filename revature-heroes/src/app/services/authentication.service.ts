@@ -31,6 +31,7 @@ export class AuthenticationService {
 
   logOut(): void {
     sessionStorage.removeItem('username');
+    this.user = null;
     this.userService.logoutUser();
   }
 
