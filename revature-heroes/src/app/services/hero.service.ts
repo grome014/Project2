@@ -26,6 +26,7 @@ export class HeroService {
 
   //will need to invoke this method for each randomly generated hero id received
   getApiHeroes(id: number): Observable<any> {
+    console.log(id);
     return this.http.get(`${this.apiUrl}${id}`);
   }
 
@@ -34,6 +35,7 @@ export class HeroService {
   }
 
   saveHeroes(heroes: Hero[]): Observable<Hero[]> {
-    return this.http.post<Hero[]>(`${this.heroUrl}`, heroes);
+    console.log(heroes);
+    return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
   }
 }

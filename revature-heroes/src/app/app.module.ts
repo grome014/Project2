@@ -14,6 +14,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     LogoutComponent,
     HeaderComponent,
-    HeroCardsComponent
+    HeroCardsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
