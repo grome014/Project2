@@ -3,6 +3,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user';
 import { HeroService } from 'src/app/services/hero.service';
 import { Hero } from 'src/app/models/hero';
+import { Observable } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -23,49 +25,35 @@ export class HomeComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.user = new User();
+    console.log(this.user);
     this.user = this.authenService.getUser();
     this.minHeroId = 1;
     this.maxHeroId = 731;
-    this.heroService.saveHeroes(await this.firstLogin(this.user)).subscribe(data => {
-      this.test = data;
-    });
-
-    this.firstLogin(this.user)
+    this.firstLogin(this.user);
   }
 
-  async firstLogin(user: User): Promise<Hero[]> {
+  firstLogin(user: User) {
     console.log(user.heroes.length)
-    let heroes: Hero[] = [];
 
     if (user.heroes.length <= 0) {
-      for ( let i = 0; i < 3; i++) {
-        this.heroService.getApiHeroes(this.generateRandomId()).subscribe(data => { 
+      this.heroService.getApiHeroes(this.generateRandomId()).subscribe(data => { 
+        this.hero = this.createHero(data);
+        this.user.heroes.push(this.hero);
+        this.heroService.getApiHeroes(this.generateRandomId()).subscribe(data => {
           this.hero = this.createHero(data);
-          //this.user.heroes.push(this.hero);
-          heroes.push(this.hero);
-          // this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
-          //   this.test = data;
-          //   console.log(this.test);
-          // });
+          this.user.heroes.push(this.hero);
+          this.heroService.getApiHeroes(this.generateRandomId()).subscribe(data => {
+            this.hero = this.createHero(data);
+            this.user.heroes.push(this.hero);
+            this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
+              this.test = data;
+            });
+          });
         });
-      }
-      console.log(heroes);
-
-      return heroes;
-      // console.log(this.user);
-      // this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
-      //   this.test = data;
-      //   console.log(this.test);
-      // });
+      });
     }
   }
-
-  // saveHeroes() {
-  //   console.log(user);
-  //     this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
-  //       this.test = data;
-  //     });
-  // }
 
   createHero(data: any): Hero {
     let hero: Hero;
