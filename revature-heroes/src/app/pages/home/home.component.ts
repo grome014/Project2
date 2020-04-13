@@ -3,6 +3,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user';
 import { HeroService } from 'src/app/services/hero.service';
 import { Hero } from 'src/app/models/hero';
+import { Observable } from 'rxjs';
+import { TEST_HEROES } from 'src/app/test-heroes';
 
 @Component({
   selector: 'app-home',
@@ -26,37 +28,28 @@ export class HomeComponent implements OnInit {
     this.user = this.authenService.getUser();
     this.minHeroId = 1;
     this.maxHeroId = 731;
-    this.heroService.saveHeroes(await this.firstLogin(this.user)).subscribe(data => {
-      this.test = data;
-    });
+
+
 
     this.firstLogin(this.user)
+
   }
 
-  async firstLogin(user: User): Promise<Hero[]> {
-    console.log(user.heroes.length)
+  firstLogin(user: User): Hero[] {
+    //console.log(user.heroes.length)
     let heroes: Hero[] = [];
 
     if (user.heroes.length <= 0) {
       for ( let i = 0; i < 3; i++) {
-        this.heroService.getApiHeroes(this.generateRandomId()).subscribe(data => { 
-          this.hero = this.createHero(data);
-          //this.user.heroes.push(this.hero);
-          heroes.push(this.hero);
-          // this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
-          //   this.test = data;
-          //   console.log(this.test);
-          // });
-        });
-      }
-      console.log(heroes);
+        //  this.heroService.getApiHeroes(this.generateRandomId()).subscribe(data => { 
+        //   heroes.push(this.hero = this.createHero(data));
+        // });
 
+      }
+      //this.heroService.saveHeroes(heroes);
+      console.log(heroes);
       return heroes;
-      // console.log(this.user);
-      // this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
-      //   this.test = data;
-      //   console.log(this.test);
-      // });
+     
     }
   }
 
@@ -70,7 +63,7 @@ export class HomeComponent implements OnInit {
   createHero(data: any): Hero {
     let hero: Hero;
     hero = this.initializeHero(hero);
-    console.log(hero);
+    //console.log(hero);
     hero.ownerID = this.user.id;
     hero.superID = data.id;
     hero.name = data.name;

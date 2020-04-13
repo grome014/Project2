@@ -35,7 +35,7 @@ export class HeroService {
   }
 
   saveHeroes(heroes: Hero[]): Observable<Hero[]> {
-    console.log(heroes);
+    console.log("post data: ", heroes)
     return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
   }
 }
