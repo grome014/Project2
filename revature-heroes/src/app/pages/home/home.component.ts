@@ -6,6 +6,7 @@ import { Hero } from 'src/app/models/hero';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit {
   createHero(data: any): Hero {
     let hero: Hero;
     hero = this.initializeHero(hero);
-    console.log(hero);
+    //console.log(hero);
     hero.ownerID = this.user.id;
     hero.superID = data.id;
     hero.name = data.name;
