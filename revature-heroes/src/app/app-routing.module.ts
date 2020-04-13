@@ -7,6 +7,8 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
+import { HomeComponent } from './pages/home/home.component';
+
 
 const routes: Routes = [
   { path: 'helloworld', component: HelloWorldComponent },
@@ -15,6 +17,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService] },
+  { path: 'home', component: HomeComponent, canActivate:[AuthGuardService] },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

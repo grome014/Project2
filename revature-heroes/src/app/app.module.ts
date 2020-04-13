@@ -20,7 +20,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
-
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
@@ -32,7 +32,9 @@ import { HeroMissionComponent } from './pages/hero-mission/hero-mission.componen
     LogoutComponent,
     HeaderComponent,
     HeroCardsComponent,
-    HeroMissionComponent
+    HeroMissionComponent,
+    HomeComponent
+
   ],
   imports: [
     BrowserModule,
