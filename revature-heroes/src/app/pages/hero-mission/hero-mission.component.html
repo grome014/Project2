@@ -1,43 +1,53 @@
-
-
 <!-- 
     Mat side bar
     Mat snack bar
     Drag and drop
 -->
-
-<mat-sidenav-container>
-    <mat-sidenav mode="side" opened>
-        <mat-list *ngFor="let hero of testHeroes">
-            <mat-list-item>
-                {{hero.name}}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-        </mat-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div class="example-container" cdkDropListGroup>
-            <h2>Test Heroes</h2>
+<div cdkDropListGroup>
+    <mat-sidenav-container>
+        <mat-sidenav mode="side" opened>
             <div
                 cdkDropList
-                #doneList="cdkDropList"
-                [cdkDropListData]="done"
+                #heroList="cdkDropList"
+                [cdkDropListData]="testHeroes"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-            </div>
-        <div class="example-container">
-            <h2>testHeroes</h2>
-                <div
-                    cdkDropList
-                    #heroList="cdkDropList"
-                    [cdkDropListData]="testHeroes"
-                    class="example-list"
-                    (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let hero of testHeroes" cdkDrag><p>{{hero.name}}</p></div>
+                <div class="example-box" *ngFor="let hero of testHeroes" cdkDrag>
+                    <mat-card>
+                        <mat-card-title>{{hero.name}}</mat-card-title>
+                        <img mat-card-image src="{{hero.url}}">
+                        <mat-card-content><p>I: 35, S: 15, D: 35, P: 100</p></mat-card-content>
+                    </mat-card>
                 </div>
             </div>
-        </div> 
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="example-container" *ngFor="let mission of testMissions">
+                <h2>{{mission.title}}</h2>
+                <h3>{{mission.description}}</h3>
+                <h4>{{mission.requirements}}</h4>
+                    <div
+                        cdkDropList
+                        cdkDropListOrientation="horizontal"
+                        #missionList="cdkDropList"
+                        [cdkDropListData]="mission.heroes"
+                        [cdkDropListEnterPredicate]="enterPredicate"
+                        class="row-list"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let hero of mission.heroes" cdkDrag>
+                            <mat-card>
+                                <mat-card-title>{{hero.name}}</mat-card-title>
+                                <img mat-card-image src="{{hero.url}}">
+                                <mat-card-content><p>I: 35, S: 15, D: 35, P: 100</p></mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <div *ngIf="mission.heroes.length == 3">
+                        <h4>Success chance: % <button (click)="testClick()">Start mission!</button></h4>
+                    </div>
+                </div>
+                
+        </mat-sidenav-content> 
+    </mat-sidenav-container>
+</div>
 
