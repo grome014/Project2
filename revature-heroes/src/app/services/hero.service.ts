@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { Injectable }     from '@angular/core';
+import { HttpClient }     from '@angular/common/http'
 import { Observable, of } from 'rxjs';
-import { Hero }       from '../models/hero';
-import { TEST_HEROES } from '../test-heroes';
-import { User } from '../models/user';
+import { Hero }           from '../models/hero';
+import { TEST_HEROES }    from '../test-heroes';
+import { User }           from '../models/user';
+import { Mission }        from '../models/mission';
+import { TEST_MISSIONS }  from '../test-missions';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,9 @@ export class HeroService {
   saveHeroes(heroes: Hero[]): Observable<Hero[]> {
     console.log("post data: ", heroes)
     return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
+  }
+
+  getTestMissions(): Observable<Mission[]> {
+    return of(TEST_MISSIONS);
   }
 }

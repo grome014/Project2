@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroService } from 'src/app/services/hero.service';
 import { Hero } from '../../models/hero';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, CdkDropListGroup} from '@angular/cdk/drag-drop';
+import { Mission } from 'src/app/models/mission';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 //import { TEST_HEROES } from '../../test-heroes';
 
 @Component({
@@ -12,23 +14,14 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 
 
 export class HeroMissionComponent implements OnInit {
+  
   testHeroes: Hero[];
-  missionHeroes: Hero[];
+  missionHeroes: Hero[] = [];
+  testMissions: Mission[];
+  payload: Mission[];
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
+  currently_selected_heroes: Hero[] = [];
 
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -39,6 +32,10 @@ export class HeroMissionComponent implements OnInit {
                         event.previousIndex,
                         event.currentIndex);
     }
+
+    console.log("container id: ", event.container.id);
+    console.log("heroes in container: ", event.container.data.length);
+    console.log("heores: ", event.container.data);
   }
 
   constructor(private heroService: HeroService) { }
@@ -46,6 +43,8 @@ export class HeroMissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTestHeroes();
+    this.getTestMissions();
+    console.log(this.testMissions);
   }
 
 
@@ -53,11 +52,23 @@ export class HeroMissionComponent implements OnInit {
     this.heroService.getTestHeroes()
         .subscribe(data => {
           this.testHeroes = data;
-          this.missionHeroes = data;
         })
   }
 
-  
+  getTestMissions(): void {
+    this.heroService.getTestMissions()
+        .subscribe(data => {
+          this.testMissions = data;
+        })
+  }
+
+  enterPredicate(drag: CdkDrag, drop: CdkDropList) {
+    return true;
+  }
+
+  testClick(): void {
+
+  }
 
 }
 

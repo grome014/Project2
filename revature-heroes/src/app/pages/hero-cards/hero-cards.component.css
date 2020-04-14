@@ -1,10 +1,10 @@
 mat-card {
     max-width: 150px;
     max-height: 300px;
+    background-color: beige;
 }
 
 mat-grid-tile {
-    background: lightblue;
-    
+    background: lightblue;  
 }
 
