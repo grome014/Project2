@@ -4,6 +4,7 @@ import { Login } from 'src/app/models/login';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -58,9 +60,12 @@ export class RegisterComponent implements OnInit {
 
   validateRegistration(credentials: Login) {
     if (credentials != null) {
-      //this.router.navigate()
+      this.snackBar.open('Registered! Please log in.', '', {
+        duration: 3000
+      });
+      this.router.navigate(['login'])
     } else {
-      this.error = 'Username: ' + this.info.userName + ' is already taken';
+      this.error = 'Username ' + this.info.userName + ' is already taken!';
       this.loading = false;
     }
   }

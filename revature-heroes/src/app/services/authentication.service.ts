@@ -16,7 +16,7 @@ export class AuthenticationService {
 
   authenticate(info: User): Boolean {
     if (info != null) {
-      sessionStorage.setItem('username', info.userName);
+      // sessionStorage.setItem('user', JSON.stringify(info));
       this.setUser(info);
       return true;
     } else {
@@ -26,23 +26,23 @@ export class AuthenticationService {
 
 
   isUserLoggedIn(): Boolean {
-    let user = sessionStorage.getItem('username');
+    let user = sessionStorage.getItem('user');
     return !(user === null);
   }
 
   logOut(): void {
-    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('user');
     this.user = null;
     this.userService.logoutUser();
   }
 
   setUser(user: User) {
-    this.user = user;
-    sessionStorage.setItem("userId", user.id.toString());
+    // this.user = JSON.parse(sessionStorage.getItem('user'));
+    // sessionStorage.setItem("userId", user.id.toString());
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   getUser(): User {
-    console.log(this.user);
-    return this.user;
+    return JSON.parse(sessionStorage.getItem('user'));
   }
 }

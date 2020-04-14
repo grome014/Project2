@@ -1,5 +1,6 @@
-<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<div class="col-sm-4 offset-sm-4">
 <h2>Login</h2>
+<div *ngIf="error" class="alert alert-danger text-center">{{error}}</div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="userName">Username</label>
@@ -27,6 +28,7 @@
         <a routerLink="/register" class="btn btn-link">Register</a>
     </div>
 </form>
+</div>
 
 <div>
     <p>{{user | json}}</p>

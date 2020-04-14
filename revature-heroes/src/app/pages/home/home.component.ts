@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = new User();
-    console.log(this.user);
     this.user = this.authenService.getUser();
     this.minHeroId = 1;
     this.maxHeroId = 731;
@@ -49,6 +48,7 @@ export class HomeComponent implements OnInit {
             this.user.heroes.push(this.hero);
             this.heroService.saveHeroes(this.user.heroes).subscribe(data => {
               this.test = data;
+              this.authenService.setUser(this.user);
             });
           });
         });
