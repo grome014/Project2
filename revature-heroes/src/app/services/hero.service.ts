@@ -44,4 +44,12 @@ export class HeroService {
   getTestMissions(): Observable<Mission[]> {
     return of(TEST_MISSIONS);
   }
+
+  deleteHero(hero: Hero): Observable<Hero[]> {
+    return this.http.post<Hero[]>(`${this.heroUrl}deleteHero`, hero);
+  }
+
+  addHero(hero: Hero): Observable<Hero[]> {
+    return this.http.post<Hero[]>(`${this.heroUrl}addHero`, hero);
+  }
 }
