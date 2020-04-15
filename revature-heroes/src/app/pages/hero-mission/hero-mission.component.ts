@@ -4,6 +4,7 @@ import { Hero } from '../../models/hero';
 import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, CdkDropListGroup} from '@angular/cdk/drag-drop';
 import { Mission } from 'src/app/models/mission';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { MissionService } from 'src/app/services/mission.service';
 //import { TEST_HEROES } from '../../test-heroes';
 
 @Component({
@@ -36,9 +37,10 @@ export class HeroMissionComponent implements OnInit {
     console.log("container id: ", event.container.id);
     console.log("heroes in container: ", event.container.data.length);
     console.log("heores: ", event.container.data);
+    console.log("missions", this.testMissions);
   }
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService, private missionService: MissionService) { }
 
 
   ngOnInit(): void {
@@ -56,7 +58,7 @@ export class HeroMissionComponent implements OnInit {
   }
 
   getTestMissions(): void {
-    this.heroService.getTestMissions()
+    this.missionService.getTestMissions()
         .subscribe(data => {
           this.testMissions = data;
         })
@@ -66,8 +68,11 @@ export class HeroMissionComponent implements OnInit {
     return true;
   }
 
-  testClick(): void {
-
+  startMission(mission: Mission): void {
+    console.log("mission being sent: ", mission);
+    let date = Date.now();
+    console.log("start date: ", date)
+    mission.missionStart = date;
   }
 
 }
