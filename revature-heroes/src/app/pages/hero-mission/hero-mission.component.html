@@ -1,3 +1,4 @@
+<!-- <app-header></app-header> -->
 <!-- 
     Mat side bar
     Mat snack bar
@@ -25,7 +26,8 @@
             <div class="example-container" *ngFor="let mission of testMissions">
                 <h2>{{mission.title}}</h2>
                 <h3>{{mission.description}}</h3>
-                <h4>{{mission.requirements}}</h4>
+                <h4>Mission Level: {{mission.requirements.missionLevel}}, Heroes Required: {{mission.requirements.heroesRequired}}, Mission Duration: {{mission.requirements.missionDuration}}, Required Stat: {{mission.requirements.statRequired}}</h4>
+
                     <div
                         cdkDropList
                         cdkDropListOrientation="horizontal"
@@ -42,8 +44,8 @@
                             </mat-card>
                         </div>
                     </div>
-                    <div *ngIf="mission.heroes.length == 3">
-                        <h4>Success chance: % <button (click)="testClick()">Start mission!</button></h4>
+                    <div *ngIf="mission.heroes.length == mission.requirements.heroesRequired">
+                        <h4>Success chance: % <button (click)="startMission(mission)">Start mission!</button></h4>
                     </div>
                 </div>
                 
@@ -51,3 +53,9 @@
     </mat-sidenav-container>
 </div>
 
+<!-- requirements: {
+    "heroesRequired": 2,
+    "missionDuration": 30,
+    "missionLevel": 10,
+    "statRequired": "speed"
+}, -->

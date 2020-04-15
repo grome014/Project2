@@ -4,8 +4,6 @@ import { Observable, of } from 'rxjs';
 import { Hero }           from '../models/hero';
 import { TEST_HEROES }    from '../test-heroes';
 import { User }           from '../models/user';
-import { Mission }        from '../models/mission';
-import { TEST_MISSIONS }  from '../test-missions';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +21,11 @@ export class HeroService {
 
   getHeroes(user: User): Observable<Hero[]> {
     return this.http.get<Hero[]>(`${this.heroUrl}${user.id}`);
-    //@TODO: I need a path to get heroes from! -Logan
   }
+
+  // getHeroes(): Observable<Hero[]> {
+  //   return this.http.get<Hero[]>(`${this.heroUrl}${sessionStorage.getItem("user")}`);
+  // }
 
   //will need to invoke this method for each randomly generated hero id received
   getApiHeroes(id: number): Observable<any> {
@@ -41,7 +42,8 @@ export class HeroService {
     return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
   }
 
-  getTestMissions(): Observable<Mission[]> {
-    return of(TEST_MISSIONS);
-  }
+
+  
+
+
 }
