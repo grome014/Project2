@@ -71,6 +71,7 @@ export class HomeComponent implements OnInit {
     hero.power = data.powerstats.power;
     hero.combat = data.powerstats.combat;
     hero.url = data.image.url;
+    hero.status = data.status;
     return hero;
   }
 
@@ -91,6 +92,7 @@ export class HomeComponent implements OnInit {
       power: 0,
       combat: 0,
       url: "",
+      status: ""
     }
     return hero;
   }

@@ -1,11 +1,29 @@
-mat-sidenav-container {
+/* mat-sidenav-container {
     position: absolute;
-    top: 0;
+    height: 100vh;
+    top: 0px;
     bottom: 0;
     left: 0;
     right: 0;
     background: #eee;
     padding-top: 0;
+} */
+
+mat-sidenav-container {
+  height: inherit;
+}
+
+.mission-container {
+  height: 100vh;
+}
+
+mat-expansion-panel {
+  /* width: 100%; */
+  max-width: 650px;
+  min-width: 650px;
+  margin-left: 170px;
+  /* margin-left: 10px; */
+  vertical-align: middle;
 }
 
 mat-card {
@@ -14,9 +32,22 @@ mat-card {
   background-color: beige;
 }
 
+.card-content {
+  position: absolute;
+  bottom: 0px;
+}
+
+.no-drag {
+  display:none
+}
+
+.important-details {
+  width: 400px;
+}
+
 
 .example-container {
-    width: 600px;
+    min-width: 600px;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
@@ -25,7 +56,7 @@ mat-card {
   
   .example-list {
     border: solid 1px #ccc;
-    min-height: 60px;
+    min-height: 100%;
     background: white;
     border-radius: 4px;
     overflow: hidden;

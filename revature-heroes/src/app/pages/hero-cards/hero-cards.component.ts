@@ -14,7 +14,7 @@ export class HeroCardsComponent implements OnInit {
 
   
   ngOnInit(): void {
-   
+   this.getTestHeroes();
   }
 
   getTestHeroes(): void {

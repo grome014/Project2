@@ -18,9 +18,9 @@ export class MissionService {
   }
 
 
-  startMission(mission: Mission): Observable<Mission[]> {
+  startMission(mission: Mission): Observable<Mission> {
     console.log("post data: ", mission)
-    return this.http.post<Mission[]>(`${this.heroUrl}startMissions`, mission);
+    return this.http.post<Mission>(`${this.heroUrl}startMission`, mission);
   }
 
 

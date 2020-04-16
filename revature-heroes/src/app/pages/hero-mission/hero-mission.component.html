@@ -1,61 +1,146 @@
-<!-- <app-header></app-header> -->
 <!-- 
     Mat side bar
     Mat snack bar
     Drag and drop
 -->
-<div cdkDropListGroup>
+<div cdkDropListGroup class="mission-container">
     <mat-sidenav-container>
         <mat-sidenav mode="side" opened>
             <div
                 cdkDropList
                 #heroList="cdkDropList"
-                [cdkDropListData]="testHeroes"
+                [cdkDropListData]="availableHeroes"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let hero of testHeroes" cdkDrag>
+                <div class="example-box" *ngFor="let hero of availableHeroes" cdkDrag>
                     <mat-card>
                         <mat-card-title>{{hero.name}}</mat-card-title>
                         <img mat-card-image src="{{hero.url}}">
-                        <mat-card-content><p>I: 35, S: 15, D: 35, P: 100</p></mat-card-content>
+                        <mat-card-content><p class="card-content">I:{{hero.intelligence}}, Str:{{hero.strength}}, Sp:{{hero.speed}}, D:{{hero.durability}}, P:{{hero.power}}, C:{{hero.combat}}</p></mat-card-content>
                     </mat-card>
                 </div>
             </div>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div class="example-container" *ngFor="let mission of testMissions">
-                <h2>{{mission.title}}</h2>
-                <h3>{{mission.description}}</h3>
-                <h4>Mission Level: {{mission.requirements.missionLevel}}, Heroes Required: {{mission.requirements.heroesRequired}}, Mission Duration: {{mission.requirements.missionDuration}}, Required Stat: {{mission.requirements.statRequired}}</h4>
-
+    
+         <mat-accordion>
+            <h1 style="margin-left: 170px;">Available Missions</h1>
+            <mat-expansion-panel *ngFor="let available_mission of availableMissions">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{available_mission.title}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{available_mission.description}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Duration</th>
+                        <th>Stat Required</th>
+                        <th>Heroes</th>
+                        <th>Success Chance</th>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>{{available_mission.requirements.missionDuration}}min</td>
+                        <td>{{available_mission.requirements.statRequired}}: {{available_mission.requirements.missionLevel}}</td>
+                        <td>{{available_mission.heroes.length}}/{{available_mission.requirements.heroesRequired}}</td>
+                        <td>{{available_mission.missionSuccess}}%</td>
+                        <td><button mat-raised-button color="primary" [disabled]="available_mission.heroes.length !== available_mission.requirements.heroesRequired" (click)="startMission(available_mission)">Start Mission!</button></td>
+                    </tr>
+                </table>
                     <div
                         cdkDropList
                         cdkDropListOrientation="horizontal"
-                        #missionList="cdkDropList"
-                        [cdkDropListData]="mission.heroes"
-                        [cdkDropListEnterPredicate]="enterPredicate"
+                        #availableMissionsList="cdkDropList"
+                        [cdkDropListData]="available_mission.heroes"
+                        [cdkDropListEnterPredicate]=""
                         class="row-list"
                         (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let hero of mission.heroes" cdkDrag>
+                        <div class="example-box" *ngFor="let available_hero of available_mission.heroes" cdkDrag>
                             <mat-card>
-                                <mat-card-title>{{hero.name}}</mat-card-title>
-                                <img mat-card-image src="{{hero.url}}">
-                                <mat-card-content><p>I: 35, S: 15, D: 35, P: 100</p></mat-card-content>
+                                <mat-card-title>{{available_hero.name}}</mat-card-title>
+                                <img mat-card-image src="{{available_hero.url}}">
+                                <mat-card-content><p class="card-content">I:{{available_hero.intelligence}}, Str:{{available_hero.strength}}, Sp:{{available_hero.speed}}, D:{{available_hero.durability}}, P:{{available_hero.power}}, C:{{available_hero.combat}}</p></mat-card-content>
                             </mat-card>
                         </div>
                     </div>
-                    <div *ngIf="mission.heroes.length == mission.requirements.heroesRequired">
-                        <h4>Success chance: % <button (click)="startMission(mission)">Start mission!</button></h4>
+                </mat-expansion-panel>
+        </mat-accordion>
+        
+        <mat-accordion>
+            <h1 style="margin-left: 170px;">Missions In Progress</h1>
+            <mat-expansion-panel *ngFor="let mission_in_progress of inProgressMissions">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{mission_in_progress.title}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{mission_in_progress.description}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Duration</th>
+                        <th>Time Remaining</th>
+                        <th>Stat Required</th>
+                        <th>Success Chance</th>
+                        <th style="color: green;">Success!</th>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>{{mission_in_progress.requirements.missionDuration}}min</td>
+                        <td>{{getTimeRemaining(mission_in_progress)}}</td>
+                        <td>{{mission_in_progress.requirements.statRequired}}:{{mission_in_progress.requirements.missionLevel}}</td>
+                        <td>{{mission_in_progress.missionSuccess}}%</td>
+                        <td><button mat-raised-button color="primary" [disabled]="getTimeRemaining(mission_in_progress) !== 'Mission Completed'">View Results</button></td>
+
+                    </tr>
+                </table>
+                    <div
+                        cdkDropList
+                        cdkDropListDisabled
+                        cdkDropListOrientation="horizontal"
+                        #missionList="cdkDropList"
+                        [cdkDropListData]="mission_in_progress.heroes"
+                        [cdkDropListEnterPredicate]="enterPredicate"
+                        class="row-list">
+                        <div class="example-box" *ngFor="let potential_hero of mission_in_progress.heroes" cdkDrag [cdkDragDisabled]="potential_hero.disabled">
+                            <mat-card>
+                                <mat-card-title>{{potential_hero.name}}</mat-card-title>
+                                <img mat-card-image src="{{potential_hero.url}}">
+                                <mat-card-content><p class="card-content">I:{{potential_hero.intelligence}}, Str:{{potential_hero.strength}}, Sp:{{potential_hero.speed}}, D:{{potential_hero.durability}}, P:{{potential_hero.power}}, C:{{potential_hero.combat}}</p></mat-card-content>
+                            </mat-card>
+                        </div>
                     </div>
-                </div>
-                
+                </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion>
+            <h1 style="margin-left: 170px;">Completed Missions</h1>
+            <mat-expansion-panel *ngFor="let cm of completedMissions">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{cm.title}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{cm.description}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Duration</th>
+                        <th>Stat Required</th>
+                        <th>Mission Status</th>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>{{cm.requirements.missionDuration}}min</td>
+                        <td>{{cm.requirements.statRequired}}:{{cm.requirements.missionLevel}}</td>
+                        <td>{{cm.missionStatus}}</td>
+                    </tr>
+                </table>
+                </mat-expansion-panel>
+        </mat-accordion>
+
         </mat-sidenav-content> 
     </mat-sidenav-container>
 </div>
-
-<!-- requirements: {
-    "heroesRequired": 2,
-    "missionDuration": 30,
-    "missionLevel": 10,
-    "statRequired": "speed"
-}, -->
