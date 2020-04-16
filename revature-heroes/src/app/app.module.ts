@@ -26,6 +26,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
 import { HomeComponent } from './pages/home/home.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
