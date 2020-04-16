@@ -9,7 +9,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import { AppComponent } from './app.component';
 import { HelloWorldComponent } from './pages/hello-world/hello-world.component';
@@ -48,7 +53,11 @@ import { HomeComponent } from './pages/home/home.component';
     MatSidenavModule,
     MatDividerModule,
     MatListModule,
-    DragDropModule
+    DragDropModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

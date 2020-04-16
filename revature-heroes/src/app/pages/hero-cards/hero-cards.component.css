@@ -4,6 +4,15 @@ mat-card {
     background-color: beige;
 }
 
+mat-card-content {
+    text-align: center;
+}
+
+.card-stats {
+    position: absolute;
+    bottom: 0px;
+}
+
 mat-grid-tile {
     background: lightblue;  
 }
