@@ -13,8 +13,8 @@ import { HeroStoreComponent } from './pages/hero-store/hero-store.component';
 
 const routes: Routes = [
   { path: 'helloworld', component: HelloWorldComponent },
-  { path: 'hero-mission', component: HeroMissionComponent},
-  { path: 'hero-cards', component: HeroCardsComponent },
+  { path: 'hero-mission', component: HeroMissionComponent, canActivate:[AuthGuardService]},
+  { path: 'hero-cards', component: HeroCardsComponent, canActivate:[AuthGuardService] },
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService] },
