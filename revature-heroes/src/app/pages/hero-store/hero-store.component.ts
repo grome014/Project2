@@ -27,6 +27,7 @@ export class HeroStoreComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //OOF
     this.user = this.authenService.getUser();
     this.heroService.getApiHeroes(1).subscribe( data => {
       this.hero = this.createHero(data);
@@ -123,6 +124,7 @@ export class HeroStoreComponent implements OnInit {
     hero.power = data.powerstats.power;
     hero.combat = data.powerstats.combat;
     hero.url = data.image.url;
+    hero.status = data.status;
     return hero;
   }
 

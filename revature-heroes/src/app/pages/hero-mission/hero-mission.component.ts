@@ -47,7 +47,7 @@ export class HeroMissionComponent implements OnInit {
           x += hero[mission.requirements.statRequired];
         }
         
-        mission.missionSuccess = Math.floor(((x/mission.requirements.heroesRequired) / mission.requirements.missionLevel) * 100);
+        mission.missionSuccess = Math.floor((x / mission.requirements.missionLevel) * 100);
       }
     }
   }
@@ -123,6 +123,9 @@ export class HeroMissionComponent implements OnInit {
     this.missionService.startMission(mission).subscribe(data => {
       console.log("Mission that got returned from 'startMission': ", data);
       this.sortMissions(data);
+      this.snackBar.open("Mission started!", 'Okay', {
+        duration: 10000
+      });
     })
     
   }
