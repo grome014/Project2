@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 import { AppComponent } from './app.component';
@@ -26,7 +27,6 @@ import { HeaderComponent } from './pages/header/header.component';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
 import { HomeComponent } from './pages/home/home.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -58,7 +58,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatMenuModule,
     MatExpansionModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

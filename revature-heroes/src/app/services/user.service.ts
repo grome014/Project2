@@ -8,7 +8,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-82-77-20.compute-1.amazonaws.com:8085/RevatureHeroes/';
 
   constructor(private http: HttpClient) { }
   

@@ -14,11 +14,11 @@ export class HeroCardsComponent implements OnInit {
 
   
   ngOnInit(): void {
-   this.getTestHeroes();
+  //  this.getTestHeroes();
   }
 
-  getTestHeroes(): void {
-    this.heroService.getTestHeroes()
-        .subscribe(data => this.heroes = data)
-  }
+  // getTestHeroes(): void {
+  //   this.heroService.getTestHeroes()
+  //       .subscribe(data => this.heroes = data)
+  // }
 }

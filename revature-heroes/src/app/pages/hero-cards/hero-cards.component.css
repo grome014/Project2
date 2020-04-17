@@ -1,16 +1,14 @@
 mat-card {
-    max-width: 150px;
-    max-height: 300px;
-    background-color: beige;
-}
-
-mat-card-content {
+    max-width: 180px;
+    max-height: 350px;
     text-align: center;
-}
-
-.card-stats {
-    position: absolute;
-    bottom: 0px;
+    background-color: lightgray;
+  }
+  
+mat-card-content {
+    font-size: small;
+    font-style: italic;
+    font-weight: bold;
 }
 
 mat-grid-tile {
