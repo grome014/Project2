@@ -20,8 +20,8 @@ export class HeroService {
     return this.http.get<String>(`${this.heroUrl}greeting`);
   }
 
-  getHeroes(user: User): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${this.heroUrl}${user.id}`);
+  getHeroes(id): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${this.heroUrl}getHeroes/${id}`);
   }
 
   // getHeroes(): Observable<Hero[]> {
@@ -39,13 +39,11 @@ export class HeroService {
   }
 
   saveHeroes(heroes: Hero[]): Observable<Hero[]> {
-    console.log("post data: ", heroes)
+    console.log("TEST");
+    console.log("Heroes I'm Saving: ", heroes)
     return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
   }
 
-  getTestMissions(): Observable<Mission[]> {
-    return of(TEST_MISSIONS);
-  }
 
   deleteHero(hero: Hero): Observable<Hero[]> {
     return this.http.post<Hero[]>(`${this.heroUrl}deleteHero`, hero);

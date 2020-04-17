@@ -8,7 +8,7 @@ import { TEST_MISSIONS } from '../test-missions';
   providedIn: 'root'
 })
 export class MissionService {
-  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-82-77-20.compute-1.amazonaws.com:8085/RevatureHeroes/';
 
   constructor(private http: HttpClient) { }
 
@@ -18,13 +18,13 @@ export class MissionService {
   }
 
 
-  startMission(mission: Mission): Observable<Mission> {
+  startMission(mission: Mission): Observable<Mission[]> {
     console.log("post data: ", mission)
-    return this.http.post<Mission>(`${this.heroUrl}startMission`, mission);
+    return this.http.post<Mission[]>(`${this.heroUrl}startMission`, mission);
   }
 
 
-  completeMission(mission: Mission): Observable<Mission[]> {
+  completeMission(mission: Mission): Observable<any> {
     console.log("post data: ", mission)
     return this.http.post<Mission[]>(`${this.heroUrl}completeMission`, mission);
   }
