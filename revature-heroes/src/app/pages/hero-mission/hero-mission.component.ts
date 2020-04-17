@@ -66,6 +66,7 @@ export class HeroMissionComponent implements OnInit {
   }
 
   getTimeRemaining(mission: Mission): string {
+    if (mission == undefined) return;
     let missionDurationMiliseconds = mission.requirements.missionDuration * 1000;
     let timeElapsedMiliseconds = Date.now() - mission.missionStart;
     if (timeElapsedMiliseconds >= missionDurationMiliseconds) {
@@ -74,6 +75,8 @@ export class HeroMissionComponent implements OnInit {
       return `${Math.floor((missionDurationMiliseconds - timeElapsedMiliseconds) / 1000)}sec`;
     }
   }
+
+
 
   getHeroes(): void {
     this.heroService.getHeroes(this.user.id).subscribe(heroes => {
@@ -104,6 +107,9 @@ export class HeroMissionComponent implements OnInit {
   }
 
   startMission(mission: Mission): void {
+    setInterval(function() {
+      this.getTimeRemaining(mission);
+    }, 1000);
     mission.missionStart = Date.now();
     mission.heroes.forEach(hero => {
       hero.status = "Busy";
