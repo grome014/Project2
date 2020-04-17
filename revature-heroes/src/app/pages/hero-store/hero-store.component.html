@@ -1,0 +1,89 @@
+<h2>Store</h2>
+
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+        <h2>Your Heroes:</h2>
+        <div
+            id="userHeroes"
+            cdkDropList
+            #heroList="cdkDropList"
+            [cdkDropListData]="this.user.heroes"
+            class="example-list"
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListEnterPredicate]="heroesPredicate"
+            [cdkDropListConnectedTo]="[storeHeroesList, sellHeroList]">
+            <div class="example-box" *ngFor="let hero of this.user.heroes" cdkDrag>
+                <mat-card>
+                    <mat-card-title>{{hero.name}}</mat-card-title>
+                    <img mat-card-image src="{{hero.url}}">
+                    <mat-card-content><p>I: {{hero.intelligence}}, S: {{hero.speed}}, 
+                        D: {{hero.durability}}, P: {{hero.power}}</p></mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+        <div class="buy-container">
+            <h2>Heroes to Buy</h2>
+            <h3>Your current Hero Essence: {{this.user.treasury.heroEssence}}</h3>
+            <p>Drag and Drop a Hero into your group to buy it</p>
+                <div
+                    id="buyHero"
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    #storeHeroesList="cdkDropList"
+                    [cdkDropListData]="storeHeroes"
+                    [cdkDropListEnterPredicate]="buyPredicate"
+                    class="row-list"
+                    (cdkDropListDropped)="drop($event)"
+                    [cdkDropListConnectedTo]="[heroList]">
+                    <div class="example-box" *ngFor="let hero of storeHeroes" cdkDrag>
+                        <mat-card>
+                            <mat-card-title>{{hero.name}}</mat-card-title>
+                            <mat-card-subtitle>Price: {{this.heroPrice(hero)}} Essence</mat-card-subtitle>
+                            <img mat-card-image src="{{hero.url}}">
+                            <mat-card-content><p>I: {{hero.intelligence}}, S: {{hero.speed}}, 
+                                D: {{hero.durability}}, P: {{hero.power}}</p>
+                            
+                            </mat-card-content>
+                                
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+            
+    </mat-sidenav-content>
+    <mat-sidenav-content>
+        <div class="example-container">
+            <h2>Heroe to Sell</h2>
+            <h3>Your current Hero Essence: {{this.user.treasury.heroEssence}}</h3>
+            <p>Drag and Drop a Hero to sell it</p>
+                <div
+                    id="sellHero"
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    #sellHeroList="cdkDropList"
+                    [cdkDropListData]="heroToSell"
+                    [cdkDropListEnterPredicate]="sellPredicate"
+                    class="row-list"
+                    (cdkDropListDropped)="drop($event)"
+                    [cdkDropListConnectedTo]="[heroList]">
+                    <div class="example-box" *ngFor="let hero of heroToSell" cdkDrag>
+                        <mat-card>
+                            <mat-card-title>{{hero.name}}</mat-card-title>
+                            <mat-card-subtitle>Sell Price: {{this.sellPrice(this.heroPrice(hero))}} Essence</mat-card-subtitle>
+                            <img mat-card-image src="{{hero.url}}">
+                            <mat-card-content><p>I: {{hero.intelligence}}, S: {{hero.speed}}, 
+                                D: {{hero.durability}}, P: {{hero.power}}</p></mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div *ngIf="this.heroToSell.length == 1">
+                    <button (click)="sellHero()">Sell Hero</button>
+                </div>
+            </div>
+            
+    </mat-sidenav-content> 
+
+</mat-sidenav-container>

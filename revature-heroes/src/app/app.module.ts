@@ -27,6 +27,7 @@ import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HeroStoreComponent } from './pages/hero-store/hero-store.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HeaderComponent,
     HeroCardsComponent,
     HeroMissionComponent,
-    HomeComponent
+    HomeComponent,
+    HeroStoreComponent
 
   ],
   imports: [

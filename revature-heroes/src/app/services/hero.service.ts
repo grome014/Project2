@@ -10,7 +10,8 @@ import { User }           from '../models/user';
 })
 export class HeroService {
 
-  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  // private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-82-77-20.compute-1.amazonaws.com:8085/RevatureHeroes/';
   private apiUrl = 'https://www.superheroapi.com/api.php/10219874160636069/';
 
   constructor(private http: HttpClient) { }
@@ -42,8 +43,15 @@ export class HeroService {
     return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
   }
 
+  getTestMissions(): Observable<Mission[]> {
+    return of(TEST_MISSIONS);
+  }
 
-  
+  deleteHero(hero: Hero): Observable<Hero[]> {
+    return this.http.post<Hero[]>(`${this.heroUrl}deleteHero`, hero);
+  }
 
-
+  addHero(hero: Hero): Observable<Hero[]> {
+    return this.http.post<Hero[]>(`${this.heroUrl}addHero`, hero);
+  }
 }

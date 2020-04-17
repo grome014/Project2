@@ -8,6 +8,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { HeroCardsComponent } from './pages/hero-cards/hero-cards.component';
 import { HeroMissionComponent } from './pages/hero-mission/hero-mission.component';
 import { HomeComponent } from './pages/home/home.component';
+import { HeroStoreComponent } from './pages/hero-store/hero-store.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService] },
   { path: 'home', component: HomeComponent, canActivate:[AuthGuardService] },
+  { path: 'store', component: HeroStoreComponent, canActivate:[AuthGuardService]},
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

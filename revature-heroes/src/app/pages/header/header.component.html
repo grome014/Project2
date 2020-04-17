@@ -4,6 +4,7 @@
         <ul class="navbar-nav">
             <li><a *ngIf="!flag.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
             <li><a *ngIf="flag.isUserLoggedIn()" class="nav-link">Missions</a></li>
+            <li><a *ngIf="flag.isUserLoggedIn()" routerLink="/store" class="nav-link">Hero Store</a></li>
 
             <li><a *ngIf="flag.isUserLoggedIn()" routerLink="/logout" class="nav-link">Logout</a></li>
         </ul>
