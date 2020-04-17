@@ -2,13 +2,20 @@
 
 mat-card {
   max-width: 150px;
-  max-height: 300px;
+  max-height: 400px;
   background-color: beige;
 }
 
+.buy-container {
+  width: 600px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
 
 .example-container {
-    width: 300px;
+    width: 250px;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;

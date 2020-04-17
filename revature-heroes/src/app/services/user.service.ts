@@ -8,7 +8,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  // private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-82-77-20.compute-1.amazonaws.com:8085/RevatureHeroes/';
 
   constructor(private http: HttpClient) { }
   
@@ -22,5 +23,13 @@ export class UserService {
 
   logoutUser(): Observable<String> {
     return this.http.get<String>(`${this.heroUrl}logout`);
+  }
+
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(`${this.heroUrl}${id}`);
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.heroUrl}updateUser`, user);
   }
 }

@@ -24,8 +24,9 @@
     </mat-sidenav>
     
     <mat-sidenav-content>
-        <div class="example-container">
+        <div class="buy-container">
             <h2>Heroes to Buy</h2>
+            <h3>Your current Hero Essence: {{this.user.treasury.heroEssence}}</h3>
             <p>Drag and Drop a Hero into your group to buy it</p>
                 <div
                     id="buyHero"
@@ -40,9 +41,13 @@
                     <div class="example-box" *ngFor="let hero of storeHeroes" cdkDrag>
                         <mat-card>
                             <mat-card-title>{{hero.name}}</mat-card-title>
+                            <mat-card-subtitle>Price: {{this.heroPrice(hero)}} Essence</mat-card-subtitle>
                             <img mat-card-image src="{{hero.url}}">
                             <mat-card-content><p>I: {{hero.intelligence}}, S: {{hero.speed}}, 
-                                D: {{hero.durability}}, P: {{hero.power}}</p></mat-card-content>
+                                D: {{hero.durability}}, P: {{hero.power}}</p>
+                            
+                            </mat-card-content>
+                                
                         </mat-card>
                     </div>
                 </div>
@@ -52,6 +57,7 @@
     <mat-sidenav-content>
         <div class="example-container">
             <h2>Heroe to Sell</h2>
+            <h3>Your current Hero Essence: {{this.user.treasury.heroEssence}}</h3>
             <p>Drag and Drop a Hero to sell it</p>
                 <div
                     id="sellHero"
@@ -66,6 +72,7 @@
                     <div class="example-box" *ngFor="let hero of heroToSell" cdkDrag>
                         <mat-card>
                             <mat-card-title>{{hero.name}}</mat-card-title>
+                            <mat-card-subtitle>Sell Price: {{this.sellPrice(this.heroPrice(hero))}} Essence</mat-card-subtitle>
                             <img mat-card-image src="{{hero.url}}">
                             <mat-card-content><p>I: {{hero.intelligence}}, S: {{hero.speed}}, 
                                 D: {{hero.durability}}, P: {{hero.power}}</p></mat-card-content>

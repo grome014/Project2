@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { Hero } from 'src/app/models/hero';
 import { HeroService } from 'src/app/services/hero.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-hero-store',
@@ -21,7 +22,8 @@ export class HeroStoreComponent implements OnInit {
   constructor(
     private authenService: AuthenticationService,
     private heroService: HeroService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +31,14 @@ export class HeroStoreComponent implements OnInit {
     this.heroService.getApiHeroes(1).subscribe( data => {
       this.hero = this.createHero(data);
       this.storeHeroes.push(this.hero);
+      this.heroService.getApiHeroes(40).subscribe( data => {
+        this.hero = this.createHero(data);
+        this.storeHeroes.push(this.hero);
+        this.heroService.getApiHeroes(644).subscribe( data => {
+          this.hero = this.createHero(data);
+          this.storeHeroes.push(this.hero);
+        });
+      });
     });
   }
 
@@ -37,18 +47,26 @@ export class HeroStoreComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       console.log(event);
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-
-      if (event.previousContainer.id == "buyHero") {
-        this.buyHero(event.container.data[event.currentIndex]);
+      if (event.previousContainer.id == "sellHero" || event.previousContainer.id == "userHeroes") {
+        transferArrayItem(event.previousContainer.data,
+                          event.container.data,
+                          event.previousIndex,
+                          event.currentIndex);
+      } else if ((event.previousContainer.id == "buyHero") && 
+          (this.user.treasury.heroEssence < this.heroPrice(event.container.data[event.currentIndex]))) {
+        this.snackBar.open('Not enough Essence!', 'Dismiss', {
+          duration: 3000
+        });
+      } else if (event.previousContainer.id == "buyHero" &&
+          (this.user.treasury.heroEssence >= this.heroPrice(event.container.data[event.currentIndex]))) {
+            console.log("buy hero");
+            transferArrayItem(event.previousContainer.data,
+                              event.container.data,
+                              event.previousIndex,
+                              event.currentIndex);
+            this.buyHero(event.container.data[event.currentIndex]);
       }
     }
-    // console.log("container id: ", event.container.id);
-    // console.log("heroes in container: ", event.container.data.length);
-    // console.log("heores: ", event.container.data);
   }
 
   enterPredicate(drag: CdkDrag, drop: CdkDropList) {
@@ -67,8 +85,7 @@ export class HeroStoreComponent implements OnInit {
   }
 
   sellPredicate(drag: CdkDrag, drop: CdkDropList) {
-    // console.log(drag);
-    if (drop.data.length == 0 || drag.data.length >= 2) {
+    if (drop.data.length == 0 && drag.dropContainer.data.length >= 2) {
       return true;
     }
     return false;
@@ -109,7 +126,7 @@ export class HeroStoreComponent implements OnInit {
   }
 
   sellHero() {
-    console.log(this.heroToSell[0]);
+    this.user.treasury.heroEssence = this.user.treasury.heroEssence + this.sellPrice(this.heroPrice(this.heroToSell[0]));
     this.heroService.deleteHero(this.heroToSell[0]).subscribe(data => {
       this.user.heroes = data;
       this.authenService.setUser(this.user);
@@ -117,16 +134,43 @@ export class HeroStoreComponent implements OnInit {
       this.snackBar.open('Hero sold.', 'Dismiss', {
         duration: 3000
       });
+      this.userService.updateUser(this.user).subscribe(data => {
+        this.user = data;
+      })
     })
   }
 
   buyHero(hero: Hero) {
+    this.user.treasury.heroEssence = this.user.treasury.heroEssence - this.heroPrice(hero);
+    
     this.heroService.addHero(hero).subscribe(data => {
       this.user.heroes = data;
       this.authenService.setUser(this.user);
       this.snackBar.open('Congratulations! You got ' + hero.name + '!', 'Dismiss', {
         duration: 5000
       });
+      this.userService.updateUser(this.user).subscribe(data => {
+        this.user = data;
+        console.log(this.user);
+      });
     })
+  }
+
+  heroPrice(hero: Hero): number {
+    let price: number = 0;
+
+    price = ((+hero.combat + +hero.power + +hero.durability) / 10) + 5
+
+    price = Math.round(price);
+    return price;
+  }
+
+  sellPrice(price: number) {
+    let sellPrice: number;
+
+    sellPrice = price / 2;
+    sellPrice = Math.round(sellPrice);
+
+    return sellPrice;
   }
 }

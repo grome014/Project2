@@ -12,7 +12,8 @@ import { TEST_MISSIONS }  from '../test-missions';
 })
 export class HeroService {
 
-  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  // private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-82-77-20.compute-1.amazonaws.com:8085/RevatureHeroes/';
   private apiUrl = 'https://www.superheroapi.com/api.php/10219874160636069/';
 
   constructor(private http: HttpClient) { }
