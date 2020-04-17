@@ -10,7 +10,7 @@ import { User }           from '../models/user';
 })
 export class HeroService {
 
-  private heroUrl = 'http://ec2-54-158-218-76.compute-1.amazonaws.com:8085/RevatureHeroes/';
+  private heroUrl = 'http://ec2-54-82-77-20.compute-1.amazonaws.com:8085/RevatureHeroes/';
   private apiUrl = 'https://www.superheroapi.com/api.php/10219874160636069/';
 
   constructor(private http: HttpClient) { }
@@ -19,8 +19,8 @@ export class HeroService {
     return this.http.get<String>(`${this.heroUrl}greeting`);
   }
 
-  getHeroes(user: User): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${this.heroUrl}${user.id}`);
+  getHeroes(id): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${this.heroUrl}getHeroes/${id}`);
   }
 
   // getHeroes(): Observable<Hero[]> {
@@ -38,7 +38,8 @@ export class HeroService {
   }
 
   saveHeroes(heroes: Hero[]): Observable<Hero[]> {
-    console.log("post data: ", heroes)
+    console.log("TEST");
+    console.log("Heroes I'm Saving: ", heroes)
     return this.http.post<Hero[]>(`${this.heroUrl}saveHeroes`, heroes);
   }
 

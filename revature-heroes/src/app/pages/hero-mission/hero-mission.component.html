@@ -16,7 +16,7 @@
                     <mat-card>
                         <mat-card-title>{{hero.name}}</mat-card-title>
                         <img mat-card-image src="{{hero.url}}">
-                        <mat-card-content><p class="card-content">I:{{hero.intelligence}}, Str:{{hero.strength}}, Sp:{{hero.speed}}, D:{{hero.durability}}, P:{{hero.power}}, C:{{hero.combat}}</p></mat-card-content>
+                        <mat-card-content><p>I:{{hero.intelligence}}, Str:{{hero.strength}}, Sp:{{hero.speed}}, D:{{hero.durability}}, P:{{hero.power}}, C:{{hero.combat}}</p></mat-card-content>
                     </mat-card>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         <th>Success Chance</th>
                     </tr>
                     <tr style="text-align: center;">
-                        <td>{{available_mission.requirements.missionDuration}}min</td>
+                        <td>{{available_mission.requirements.missionDuration}}sec</td>
                         <td>{{available_mission.requirements.statRequired}}: {{available_mission.requirements.missionLevel}}</td>
                         <td>{{available_mission.heroes.length}}/{{available_mission.requirements.heroesRequired}}</td>
                         <td>{{available_mission.missionSuccess}}%</td>
@@ -85,14 +85,14 @@
                         <th>Time Remaining</th>
                         <th>Stat Required</th>
                         <th>Success Chance</th>
-                        <th style="color: green;">Success!</th>
+                        
                     </tr>
                     <tr style="text-align: center;">
-                        <td>{{mission_in_progress.requirements.missionDuration}}min</td>
+                        <td>{{mission_in_progress.requirements.missionDuration}}sec</td>
                         <td>{{getTimeRemaining(mission_in_progress)}}</td>
                         <td>{{mission_in_progress.requirements.statRequired}}:{{mission_in_progress.requirements.missionLevel}}</td>
                         <td>{{mission_in_progress.missionSuccess}}%</td>
-                        <td><button mat-raised-button color="primary" [disabled]="getTimeRemaining(mission_in_progress) !== 'Mission Completed'">View Results</button></td>
+                        <td><button mat-raised-button color="primary" [disabled]="getTimeRemaining(mission_in_progress) !== 'Mission Completed'"(click)="completeMission(mission_in_progress)">View Results</button></td>
 
                     </tr>
                 </table>

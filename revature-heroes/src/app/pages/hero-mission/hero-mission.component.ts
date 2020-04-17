@@ -5,7 +5,9 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, C
 import { Mission } from 'src/app/models/mission';
 import { MissionService } from 'src/app/services/mission.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 //import { TEST_HEROES } from '../../test-heroes';
 
@@ -16,14 +18,16 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 
 
+
 export class HeroMissionComponent implements OnInit {
   availableHeroes: Hero[];
-  testHeroes: Hero[];
   testMissions: Mission[];
   availableMissions: Mission[];
   inProgressMissions: Mission[];
   completedMissions: Mission[];
+  tempMissions: Mission[];
 
+  user: User;
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -40,33 +44,25 @@ export class HeroMissionComponent implements OnInit {
       if (mission.heroes.length !== 0) {
         let x = 0;
         for (let hero of mission.heroes) {
-          console.log("mission used: ", mission)
-          console.log("hero used", hero);
-          console.log("hero stat looked up: ", mission.requirements.statRequired, "=", hero[mission.requirements.statRequired])
           x += hero[mission.requirements.statRequired];
         }
-        console.log("total hero power for this mission = ", x);
-        console.log("mission success chance: ", (x / mission.requirements.missionLevel) * 100)
-        mission.missionSuccess = (x / mission.requirements.missionLevel) * 100;
+        
+        mission.missionSuccess = Math.floor(((x/mission.requirements.heroesRequired) / mission.requirements.missionLevel) * 100);
       }
     }
   }
 
-  constructor(private heroService: HeroService, private missionService: MissionService, private authenService: AuthenticationService, private _snackBar: MatSnackBar) { }
-
-  
+  constructor(private heroService: HeroService, private missionService: MissionService, private authenService: AuthenticationService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.user = this.authenService.getUser();
+
     this.availableHeroes = [];
     this.availableMissions = [];
     this.inProgressMissions = [];
     this.completedMissions = [];
-    this.getTestHeroes();
-    this.getTestMissions();
-    
-    console.log("Available Missions: ", this.availableMissions)
-    console.log("Missions in Progress: ", this.inProgressMissions);
-    console.log("Completed Missions: ", this.completedMissions);
+    this.getHeroes();
+    this.getMissions();
   }
 
   getTimeRemaining(mission: Mission): string {
@@ -79,38 +75,24 @@ export class HeroMissionComponent implements OnInit {
     }
   }
 
-  getTestHeroes(): void {
-    this.heroService.getTestHeroes()
-        .subscribe(data => {
-          for (let i in data) {
-            if (data[i].status == "Available") {
-              console.log(data[i]);
-              this.availableHeroes.push(data[i]);
-            }
-          }
-          //this.testHeroes = data;
-        })
+  getHeroes(): void {
+    this.heroService.getHeroes(this.user.id).subscribe(heroes => {
+      heroes.forEach(hero => {
+        console.log("hero from getHeroes", hero);
+        if(hero.status == "Available") {
+          this.availableHeroes.push(hero);
+        }
+      })
+    })
   }
 
   getMissions(): void {
-    this.missionService.getMissions(sessionStorage.getItem("userID"))
+    this.missionService.getMissions(this.user.id)
         .subscribe(data => {
-          this.testMissions = data;
+          // this.testMissions = data;
+          // console.log("test 1: ", this.testMissions);
+          this.sortMissions(data)
         });
-
-    for (let mission of this.testMissions) {
-      switch(mission.missionStatus) {
-        case "Available":
-          this.availableMissions.push(mission)
-          break;
-        case "In Progress":
-          this.inProgressMissions.push(mission);
-          break;
-        case "Completed":
-          this.completedMissions.push(mission);
-          break;
-      }
-    }
   }
 
   enterPredicate(drag: CdkDrag, drop: CdkDropList) {
@@ -123,24 +105,83 @@ export class HeroMissionComponent implements OnInit {
 
   startMission(mission: Mission): void {
     mission.missionStart = Date.now();
-    mission.missionStatus = "In Progress";
-    // console.log("mission being sent: ", mission);
-    // console.log("mission array: ", this.availableMissions);
-    //this.inProgressMissions.push(mission);
+    mission.heroes.forEach(hero => {
+      hero.status = "Busy";
+    });
+    console.log("here's mission.heroes FOR GALO and for SCIENCE", mission.heroes);
+    this.heroService.saveHeroes(mission.heroes).subscribe(data => {
+      console.log("Heroes that I'm getting back from Michael: ", data);
+      let temp = [];
+      data.forEach(hero => {
+        console.log("Looping through heroes sent back from Michael from saveHeroes: ", hero)
+        if(hero.status == "Available") {
+          temp.push(hero);
+        }
+      })
+      this.availableHeroes = temp;
+    })
+    this.missionService.startMission(mission).subscribe(data => {
+      console.log("Mission that got returned from 'startMission': ", data);
+      this.sortMissions(data);
+    })
+    
+  }
 
-    //------ removing the mission started from inProgress
-    let temp = [];
-    for(let x of this.availableMissions) {
-      if(x.missionStart != null) {
-        temp.push(x);
+  completeMission(mission: Mission): void {
+    mission.heroes.forEach(hero => {
+      hero.status = "Available";
+      console.log("Hero status changed. ", hero);
+    })
+    console.log("HERO I AM SENDING MICHAEL: ", mission.heroes);
+    this.heroService.saveHeroes(mission.heroes).subscribe(data => {
+      let temp = [];
+      console.log("saveHeroes response: ", data);
+      data.forEach(hero => {
+        console.log("Response from save heroes: ", data)
+        if(hero.status == "Available") {
+          temp.push(hero);
+        }
+      })
+      this.availableHeroes = temp;
+    })
+
+    this.missionService.completeMission(mission).subscribe(data => {
+      console.log("rewards: ", data);
+      this.user.treasury.heroDollars += data.heroDollars;
+      this.user.treasury.heroEssence += data.heroEssence;
+      this.user.treasury.powerUp     += data.powerUp;
+      this.authenService.setUser(this.user);
+
+      this.snackBar.open(`Rewards collected: Hero Dollars: ${data.heroDollars}, Hero Essence: ${data.heroEssence}, Power-ups: ${data.powerUp}`, '', {
+        duration: 10000
+      });
+    });
+
+    
+    mission.missionFinish = Date.now();
+    this.missionService.startMission(mission).subscribe(data => {
+      console.log("Missions return from start(complete)Mission", data)
+      this.sortMissions(data);
+    })
+  }
+
+  sortMissions(missions: Mission[]): void {
+    this.availableMissions = [];
+    this.inProgressMissions = [];
+    this.completedMissions = [];
+    for (let mission of missions) {
+      switch(mission.missionStatus) {
+        case "Available":
+          this.availableMissions.push(mission)
+          break;
+        case "In Progress":
+          this.inProgressMissions.push(mission);
+          break;
+        case "Completed":
+          this.completedMissions.push(mission);
+          break;
       }
     }
-    this.availableMissions = temp;
-    //------
-
-    this.missionService.startMission(mission).subscribe(data => {
-      this.inProgressMissions.push(data);
-    })
   }
 }
 
